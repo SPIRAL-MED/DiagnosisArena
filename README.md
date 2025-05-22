@@ -1,5 +1,5 @@
 # DiagnosisArena: Benchmarking Diagnostic Reasoning for Large Language Models
-<p align="center"> <img src="images/logo.png" style="width: 90%;" id="title-icon">       </p>
+<p align="center"> <img src="images/logo.png" style="width: 100%;" id="title-icon">       </p>
 
 
 
