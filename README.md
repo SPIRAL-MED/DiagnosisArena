@@ -16,7 +16,7 @@
   - [Load Data](#load-data)
   - [Inference](#inference)
   - [Evaluation](#evaluation)
-
+- [Contact Us](#contact-us)
 - [Citation](#citation)
 
 ## Introduction
@@ -91,6 +91,10 @@ python metric_results.py \
     --model_name gpt-4o \
     --metric_path ./results/model_answer_evaled.jsonl \
 ```
+
+## Contact Us
+
+If you are interested in our project and would like to join us, feel free to send an email to [xiaofan.zhang@sjtu.edu.cn](mailto:xiaofan.zhang@sjtu.edu.cn).
 
 ## Citation
 
