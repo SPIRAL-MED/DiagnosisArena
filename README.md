@@ -102,10 +102,9 @@ If you do find our code helpful or use our benchmark dataset, please cite our pa
 
 ```
 @article{zhu2025diagnosisarena,
-      title={DiagnosisArena: Benchmarking Diagnostic Reasoning for Large Language Models},
-      author={Yakun Zhu and Zhongzhen Huang and Linjie Mu and Yutong Huang and Wei Nie and Shaoting Zhang and Pengfei Liu and Xiaofan Zhang},
-      year={2025},
-      journal={arXiv preprint arXiv:2505.14107},
-      url={https://arxiv.org/abs/2505.14107}
+  title={DiagnosisArena: Benchmarking Diagnostic Reasoning for Large Language Models},
+  author={Zhu, Yakun and Huang, Zhongzhen and Mu, Linjie and Huang, Yutong and Nie, Wei and Zhang, Shaoting and Liu, Pengfei and Zhang, Xiaofan},
+  journal={arXiv preprint arXiv:2505.14107},
+  year={2025}
 }
 ```
