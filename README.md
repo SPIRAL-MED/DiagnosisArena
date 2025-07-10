@@ -18,6 +18,7 @@
   - [Evaluation](#evaluation)
 - [Contact Us](#contact-us)
 - [Citation](#citation)
+- [Disclaimer and Terms of Use](#disclaimer-and-terms-of-use)
 
 ## Introduction
 
@@ -108,3 +109,9 @@ If you do find our code helpful or use our benchmark dataset, please cite our pa
   year={2025}
 }
 ```
+
+## Disclaimer and Terms of Use
+
+This dataset is adapted from publicly available literature, including publications from Cell, JAMA, and similar sources. All case data has been de-identified.
+**This dataset is provided for research and model evaluation purposes only. It must not be used for clinical decision-making or medical diagnosis.**
+
