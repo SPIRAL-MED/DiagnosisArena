@@ -66,7 +66,7 @@ Next, run the inference script using the following command:
 python inference.py \
     --hf_data_path shzyk/DiagnosisArena \
     --model_name gpt-4o \
-    --output_path ./model_answer.jsonl \
+    --output_path ./results/model_answer.jsonl \
     --api_key YOUR_API_KEY \
     --base_url YOUR_BASE_URL \
     --folk_nums 16
@@ -88,9 +88,9 @@ python evaluation.py \
 After the evaluation, you can run this code to obtain the detailed Top-k metric results.
 
 ```bash
-python metric_results.py \
+python metric.py \
     --model_name gpt-4o \
-    --metric_path ./results/model_answer_evaled.jsonl \
+    --metric_path ./results/model_answer_evaled.jsonl
 ```
 
 ## Contact Us
@@ -113,5 +113,6 @@ If you do find our code helpful or use our benchmark dataset, please cite our pa
 ## Disclaimer and Terms of Use
 
 This dataset is adapted from publicly available literature, including publications from Cell, JAMA, and similar sources. All case data has been de-identified.
+
 **This dataset is provided for research and model evaluation purposes only. It must not be used for clinical decision-making or medical diagnosis.**
 

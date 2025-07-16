@@ -34,25 +34,6 @@ client = OpenAI(
 
 
 eval_prompt = """
-You are an expert in rare disease field. You will receive a student's answer containing 5 differential diagnoses, as well as the reference diagnosis. You need to score each diagnosis from the student's answer according to the following rules:
-
-2 = The student’s diagnosis exactly matches the reference diagnosis; 
-1 = The student’s diagnosis is a broad category that includes the reference diagnosis; 
-0 = The student's diagnosis does not meet the criteria for a score of 1 or 2.
-
-Here is the student’s answer: 
-%s
-
-Here is the reference diagnosis: 
-%s
-
-Output Format: Output the scores in the following format. 
-1. Disease 1 name: score X;
-2. Disease 2 name: score X;
-...
-"""
-
-new_eval_prompt = """
 You are an expert in diagnosing challenging cases. You will receive a student's answer containing 5 differential diagnoses, as well as the reference diagnosis. You need to score each diagnosis from the student's answer according to the following rules:
 
 2 = The student’s diagnosis exactly matches the reference diagnosis; 
@@ -66,8 +47,8 @@ Here is the reference diagnosis:
 %s
 
 Output Format: Output the scores in the following format. 
-1. Disease 1 name: score X;
-2. Disease 2 name: score X;
+1. Disease 1 Name: \\boxed{The Score of Disease 1};
+2. Disease 2 name: \\boxed{The Score of Disease 2};
 ...
 """
 
@@ -77,10 +58,8 @@ def get_gpt_result_with_retry(item):
     response = client.chat.completions.create(
         model=args.model_name, 
         messages=[
-            {"role": "user", "content": new_eval_prompt % (item["LLM Response"], item["Final Diagnosis"])},
-        ],
-        # max_tokens=4096,
-        # temperature = 0.1,
+            {"role": "user", "content": eval_prompt % (item["LLM Response"], item["Final Diagnosis"])},
+        ]
     )
     text = response.choices[0].message.content
     return_text ={"id": item["id"], "Final Diagnosis": item["Final Diagnosis"], "LLM Response": item["LLM Response"], "response": text}

@@ -31,18 +31,19 @@ def metric(model, path):
 
     top1 = []
     top5 = []
-    for dat in data:
+    for obj in data:
 
         try:
-            dat['response'] = dat['response'].replace('*', '').lower()
-            scores = re.findall(r'score (\d+)', dat['response'])
+            print(obj['response'])
+            scores = re.findall(r"\\boxed{(.*?)}", obj['response'])
+            print(scores)
             scores = [int(score) for score in scores]
             top1.append(0 if scores[0]<=1 else 1)
             top5.append(0 if max(scores[:5]) <=1 else 1)
 
         except Exception as e:
             print(e)
-            print(dat)
+            print(obj)
             exit()
     
 
