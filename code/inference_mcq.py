@@ -42,25 +42,21 @@ client = OpenAI(
 
 inference_prompt = \
 """
-As a medical expert, please make a diagnosis for the patient's disease based on the case information, 
-physical examination, and diagnostic tests. Please enumerate the top 5 most likely diagnoses for the 
-following patient in order, with the most likely disease listed first.
+According to the provided medical case and select the most appropriate diagnosis from the following four options. Put your final answer within \\boxed{}.
 
+Here is the medical case: 
 Case Information:
 %s
-
 Physical Examination:
 %s
-
-Diagnostic tests:
+Diagnostic Tests:
 %s
 
-Output the diagnosis in numeric order, one per line. For example:
-1. Disease A;
-2. Disease B;
-...
+Here are the four options: 
+%s
 
-Do not output anything else!
+Put your final answer letter within \\boxed{}.
+Final answer: \\boxed{Correct Option Letter}
 """
 
 
@@ -69,12 +65,12 @@ def llm_folk(item: dict):
     response = client.chat.completions.create(
         model=args.model_name, 
         messages=[
-            {"role": "user", "content": inference_prompt % (item["Case Information"], item["Physical Examination"], item["Diagnostic Tests"])},
+            {"role": "user", "content": inference_prompt % (item["Case Information"], item["Physical Examination"], item["Diagnostic Tests"], item["Options"])},
         ]
     )
     text = response.choices[0].message.content
     with jsonlines.open(args.output_path, mode='a') as writer:
-        writer.write({"id": item["id"], "Final Diagnosis": item["Final Diagnosis"], "LLM Response": text})  
+        writer.write({"id": item["id"], "Right Option": item["Right Option"], "LLM Response": text})  
 
 
 if __name__ == "__main__":

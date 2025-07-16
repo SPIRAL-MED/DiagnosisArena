@@ -78,7 +78,6 @@ if __name__ == "__main__":
         else:
             processed_data = []
             input_data = [line for line in jsonlines.open(args.input_path, mode='r')]
-        print(len(input_data))
 
         with ThreadPoolExecutor(max_workers=args.folk_nums) as executor:
             list(tqdm(executor.map(get_gpt_result_with_retry, input_data), total=len(input_data)))

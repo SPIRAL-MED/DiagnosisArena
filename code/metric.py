@@ -34,9 +34,7 @@ def metric(model, path):
     for obj in data:
 
         try:
-            print(obj['response'])
             scores = re.findall(r"\\boxed{(.*?)}", obj['response'])
-            print(scores)
             scores = [int(score) for score in scores]
             top1.append(0 if scores[0]<=1 else 1)
             top5.append(0 if max(scores[:5]) <=1 else 1)

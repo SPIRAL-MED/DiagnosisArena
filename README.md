@@ -16,6 +16,7 @@
   - [Load Data](#load-data)
   - [Inference](#inference)
   - [Evaluation](#evaluation)
+  - [Multi-Choice Question Evaluation](#multi-choice-question-evaluation)
 - [Contact Us](#contact-us)
 - [Citation](#citation)
 - [Disclaimer and Terms of Use](#disclaimer-and-terms-of-use)
@@ -91,6 +92,28 @@ After the evaluation, you can run this code to obtain the detailed Top-k metric 
 python metric.py \
     --model_name gpt-4o \
     --metric_path ./results/model_answer_evaled.jsonl
+```
+
+### Multi-Choice Question Evaluation
+
+If you would like to evaluate the DiagnosisArenaMCQ dataset, the process is similar to the one described above. You can start by running the inference and then compute the evaluation metrics.
+
+First, run the inference script with the following command:
+```bash
+python inference_mcq.py \
+    --hf_data_path shzyk/DiagnosisArena \
+    --model_name gpt-4o \
+    --output_path ./results/model_mcq_answer.jsonl \
+    --api_key YOUR_API_KEY \
+    --base_url YOUR_BASE_URL \
+    --folk_nums 16
+```
+
+Next, run the metric evaluation script:
+```bash
+python metric_mcq.py \
+    --model_name gpt-4o \
+    --metric_path "./results/model_mcq_answer.jsonl"
 ```
 
 ## Contact Us
