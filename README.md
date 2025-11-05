@@ -5,7 +5,7 @@
 
 <p align="center">
   📄 <a href="https://arxiv.org/abs/2505.14107" target="_blank">Paper</a> &nbsp; | &nbsp;
-  🤗 <a href="https://huggingface.co/datasets/shzyk/DiagnosisArena" target="_blank">Hugging Face</a>
+  🤗 <a href="https://huggingface.co/datasets/SII-SPIRAL-MED/DiagnosisArena" target="_blank">Hugging Face</a>
 </p>
 
 
@@ -31,7 +31,7 @@
 
 ### Load Data
 
-We have released the data of the test set on [Hugging Face](https://huggingface.co/datasets/shzyk/DiagnosisArena). In the test split, it contains 1,000 instance including the answers for small-scale testing.
+We have released the data of the test set on [Hugging Face](https://huggingface.co/datasets/SII-SPIRAL-MED/DiagnosisArena). In the test split, it contains 1,000 instance including the answers for small-scale testing.
 
 Loading the data is very simple. You can use the following code snippet:
 
@@ -65,7 +65,7 @@ Next, run the inference script using the following command:
 
 ```bash
 python inference.py \
-    --hf_data_path shzyk/DiagnosisArena \
+    --hf_data_path SII-SPIRAL-MED/DiagnosisArena \
     --model_name gpt-4o \
     --output_path ./results/model_answer.jsonl \
     --api_key YOUR_API_KEY \
@@ -101,7 +101,7 @@ If you would like to evaluate the DiagnosisArenaMCQ dataset, the process is simi
 First, run the inference script with the following command:
 ```bash
 python inference_mcq.py \
-    --hf_data_path shzyk/DiagnosisArena \
+    --hf_data_path SII-SPIRAL-MED/DiagnosisArena \
     --model_name gpt-4o \
     --output_path ./results/model_mcq_answer.jsonl \
     --api_key YOUR_API_KEY \
