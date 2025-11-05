@@ -39,7 +39,7 @@ Loading the data is very simple. You can use the following code snippet:
 from datasets import load_dataset
 
 # Load the dataset for the test split
-dataset=load_dataset("shzyk/DiagnosisArena", split="test")
+dataset=load_dataset("SII-SPIRAL-MED/DiagnosisArena", split="test")
 
 print(dataset[0])
 ```
