@@ -6,9 +6,15 @@
 <p align="center">
   📄 <a href="https://arxiv.org/abs/2505.14107" target="_blank">Paper</a> &nbsp; | &nbsp;
   🤗 <a href="https://huggingface.co/datasets/SII-SPIRAL-MED/DiagnosisArena" target="_blank">Hugging Face</a>
+  📘 <a href="https://mp.weixin.qq.com/s/8uRDnWzT2I9IRq7djuvEqw" target="_blank">量子位</a> &nbsp; | &nbsp;
 </p>
 
 
+## 🔥News
+
+- [2026/06/04] Our work is featured by [量子位](https://mp.weixin.qq.com/s/8uRDnWzT2I9IRq7djuvEqw) on Wechat!
+
+  
 ## Contents
 
 - [Introduction](#introduction)
