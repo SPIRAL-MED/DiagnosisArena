@@ -141,7 +141,10 @@ If you do find our code helpful or use our benchmark dataset, please cite our pa
 
 ## Disclaimer and Terms of Use
 
-This dataset is adapted from publicly available literature, including publications from Cell, JAMA, and similar sources. All case data has been de-identified.
+The Hugging Face dataset contains 915 entries due to temporal and copyright considerations.
+First, we excluded 2025 data as it is incomplete and may introduce outliers.
+Second, certain journals and papers are subject to copyright restrictions and were withheld from public release for compliance reasons.
+This resulted in the final dataset of 915 entries.
 
-**This dataset is provided for research and model evaluation purposes only. It must not be used for clinical decision-making or medical diagnosis.**
+This dataset is adapted from publicly available literature, including publications from Cell, JAMA, and similar sources. All case data has been de-identified. **This dataset is provided for research and model evaluation purposes only. It must not be used for clinical decision-making or medical diagnosis.**
 
