@@ -12,7 +12,8 @@
 
 ## 🔥News
 
-- [2026/06/04] Our work is featured by [量子位](https://mp.weixin.qq.com/s/8uRDnWzT2I9IRq7djuvEqw) on Wechat!
+- [2026/04/05] Our work "DiagnosisArena" is accepted to ACL 2026 (Findings)!
+- [2025/06/04] Our work is featured by [量子位](https://mp.weixin.qq.com/s/8uRDnWzT2I9IRq7djuvEqw) on Wechat!
 
   
 ## Contents
