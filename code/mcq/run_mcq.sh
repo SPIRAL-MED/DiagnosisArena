@@ -25,4 +25,4 @@ python "$SCRIPT_DIR/inference_mcq.py" \
 echo "=== Step 2: Metric (MCQ) ==="
 python "$SCRIPT_DIR/metric_mcq.py" \
     --model_name "$MODEL_NAME" \
-    --metric_path "$OUTPUT_ROOT/${MODEL_NAME}_answer.jsonl"
+    --metric_path "$OUTPUT_ROOT/${MODEL_NAME}_mcq_answer.jsonl"
