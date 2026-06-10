@@ -33,7 +33,7 @@ class Args:
         for key, value in vars(self.pargs).items():
             setattr(self, key, value)
 
-        self.output_path = f"{self.output_root}/{self.model_name}_answer.jsonl"
+        self.output_path = f"{self.output_root}/{self.model_name}_mcq_answer.jsonl"
 
     def __init__(self) -> None:
         self.parseargs()
