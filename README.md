@@ -38,7 +38,7 @@
 
 ### Load Data
 
-We have released the data of the test set on [Hugging Face](https://huggingface.co/datasets/SII-SPIRAL-MED/DiagnosisArena). In the test split, it contains 1,000 instance including the answers for small-scale testing.
+We have released the data of the test set on [Hugging Face](https://huggingface.co/datasets/SII-SPIRAL-MED/DiagnosisArena). In the test split, it contains 915 instances, including the answers for small-scale testing.
 
 Loading the data is very simple. You can use the following code snippet:
 
