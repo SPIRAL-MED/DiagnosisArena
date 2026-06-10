@@ -4,29 +4,36 @@ import argparse
 import jsonlines
 
 from openai import OpenAI
+from datasets import load_dataset
 from rich import print
 from tqdm.rich import tqdm
-from concurrent.futures import ThreadPoolExecutor
-from datasets import load_dataset
-
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
 class Args:
     def parseargs(self):
         parser = argparse.ArgumentParser()
 
-        parser.add_argument('--hf_data_path', type = str, default="shzyk/DiagnosisArena")
-        parser.add_argument('--output_path', type=str, default="./results/model_answer.jsonl")
+        parser.add_argument('--input_path', type=str,
+                            help="Input data path. Can be a local .jsonl file path or a HuggingFace dataset repo ID (e.g. 'shzyk/DiagnosisArena').")
+        parser.add_argument('--output_root', type=str,
+                            help="Root directory for output files. The output file will be saved as {output_root}/{model_name}_answer.jsonl.")
 
-        parser.add_argument("--model_name", type=str, default="gpt-4o", help="The name of the LLM model to use for inference.")
-        parser.add_argument("--api_key", type=str, default=None)
-        parser.add_argument("--base_url", type=str, default=None)
+        parser.add_argument("--model_name", type=str,
+                            help="Model name used for inference and as part of the output filename.")
+        parser.add_argument("--api_key", type=str, default=None,
+                            help="API key for the LLM provider. Defaults to the OPENAI_API_KEY environment variable if not set.")
+        parser.add_argument("--base_url", type=str, default=None,
+                            help="Base URL of the LLM API endpoint. Use this to point to a custom or self-hosted endpoint.")
 
-        parser.add_argument('--folk_nums', type=int, default=16, help="The number of threads to use for inference. It depends on the LLM api you use.")
+        parser.add_argument('--folk_nums', type=int, default=16,
+                            help="Number of parallel threads for inference. Tune according to your API rate limits.")
 
         self.pargs = parser.parse_args()
         for key, value in vars(self.pargs).items():
             setattr(self, key, value)
+
+        self.output_path = f"{self.output_root}/{self.model_name}_answer.jsonl"
 
     def __init__(self) -> None:
         self.parseargs()
@@ -77,8 +84,10 @@ if __name__ == "__main__":
 
 
     try:
-        input_datas=load_dataset(args.hf_data_path, split="test")
-        # input_datas = input_datas.select(range(10))
+        if os.path.isfile(args.input_path):
+            input_datas = [line for line in jsonlines.open(args.input_path, mode='r')]
+        else:
+            input_datas = list(load_dataset(args.input_path, split="test"))
 
         if os.path.exists(args.output_path):
             with jsonlines.open(args.output_path, mode='r') as reader:
@@ -94,7 +103,11 @@ if __name__ == "__main__":
             rest_datas = input_datas
 
         with ThreadPoolExecutor(max_workers=args.folk_nums) as executor:
-            list(tqdm(executor.map(llm_folk, rest_datas), total=len(rest_datas)))
+            futures = {executor.submit(llm_folk, item): item for item in rest_datas}
+            with tqdm(total=len(futures), desc=f"Inference MCQ [{args.model_name}]") as pbar:
+                for future in as_completed(futures):
+                    future.result()
+                    pbar.update(1)
 
     except Exception as e:
 

@@ -2,7 +2,7 @@ from openai import OpenAI
 import os
 import jsonlines
 import argparse
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from tqdm.rich import tqdm
 import time
 
@@ -10,17 +10,23 @@ import time
 class Args:
     def parseargs(self):
         parser = argparse.ArgumentParser()
-        parser.add_argument('--input_path', type=str, default="./results/model_answer.jsonl")
-        parser.add_argument('--output_path', type=str, default="./results/model_answer_evaled.jsonl")
+        parser.add_argument('--input_path', type=str,
+                            help="Path to the inference output .jsonl file to be evaluated.")
 
-        parser.add_argument('--model_name', type=str, default="gpt-4o")
-        parser.add_argument("--api_key", type=str, default=None)
-        parser.add_argument("--base_url", type=str, default=None)
-        parser.add_argument('--folk_nums', type=int, default=16, help="The number of threads to use for inference. It depends on the LLM api you use.")
+        parser.add_argument('--judge_model', type=str,
+                            help="Model name of the judge LLM used for scoring. Appended to input filename as _{judge_model}_evaled.jsonl.")
+        parser.add_argument("--api_key", type=str, default=None,
+                            help="API key for the judge LLM provider. Defaults to the OPENAI_API_KEY environment variable if not set.")
+        parser.add_argument("--base_url", type=str, default=None,
+                            help="Base URL of the judge LLM API endpoint. Use this to point to a custom or self-hosted endpoint.")
+        parser.add_argument('--folk_nums', type=int, default=16,
+                            help="Number of parallel threads for evaluation. Tune according to your API rate limits.")
 
         self.pargs = parser.parse_args()
         for key, value in vars(self.pargs).items():
             setattr(self, key, value)
+
+        self.output_path = self.input_path.removesuffix(".jsonl") + f"_{self.judge_model}_evaled.jsonl"
 
     def __init__(self) -> None:
         self.parseargs()
@@ -56,7 +62,7 @@ Output Format: Output the scores in the following format.
 def get_gpt_result_with_retry(item):
 
     response = client.chat.completions.create(
-        model=args.model_name, 
+        model=args.judge_model,
         messages=[
             {"role": "user", "content": eval_prompt % (item["LLM Response"], item["Final Diagnosis"])},
         ]
@@ -80,7 +86,11 @@ if __name__ == "__main__":
             input_data = [line for line in jsonlines.open(args.input_path, mode='r')]
 
         with ThreadPoolExecutor(max_workers=args.folk_nums) as executor:
-            list(tqdm(executor.map(get_gpt_result_with_retry, input_data), total=len(input_data)))
+            futures = {executor.submit(get_gpt_result_with_retry, item): item for item in input_data}
+            with tqdm(total=len(futures), desc=f"Evaluation with [{args.judge_model}]") as pbar:
+                for future in as_completed(futures):
+                    future.result()
+                    pbar.update(1)
 
     except Exception as e:
         print(e)

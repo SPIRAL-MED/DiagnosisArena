@@ -63,18 +63,35 @@ Each data entry contains the following fields:
 
 ### Inference
 
-To perform inference, first navigate to the code directory:
-```bash
-cd code
+Scripts are organized into two subfolders under `code/`:
+
+```
+code/
+  open/         # Open-ended diagnosis evaluation
+    inference.py
+    evaluation.py
+    metric.py
+    run.sh
+  mcq/          # Multiple-choice question evaluation
+    inference_mcq.py
+    metric_mcq.py
+    run_mcq.sh
 ```
 
-Next, run the inference script using the following command:
+The quickest way to run the full pipeline is via the provided shell scripts. Fill in your model and API details in the config block at the top of the script, then run:
 
 ```bash
-python inference.py \
-    --hf_data_path SII-SPIRAL-MED/DiagnosisArena \
+bash code/open/run.sh       # open-ended pipeline
+bash code/mcq/run_mcq.sh    # MCQ pipeline
+```
+
+Alternatively, run each step manually. `--input_path` accepts either a HuggingFace dataset repo ID or a local `.jsonl` file path:
+
+```bash
+python code/open/inference.py \
+    --input_path SII-SPIRAL-MED/DiagnosisArena \
+    --output_root ./results \
     --model_name gpt-4o \
-    --output_path ./results/model_answer.jsonl \
     --api_key YOUR_API_KEY \
     --base_url YOUR_BASE_URL \
     --folk_nums 16
@@ -82,35 +99,35 @@ python inference.py \
 
 ### Evaluation
 
-You need to provide a model to serve as the evaluation judge. Then, run the following code, which will evaluate the inference results (please make sure the path to your inference results is correctly specified):
+You need to provide a model to serve as the evaluation judge. The output file is automatically named `{input_filename}_{judge_model}_evaled.jsonl` alongside the inference output.
 
 ```bash
-python evaluation.py \
-    --input_path ./results/model_answer.jsonl \
-    --output_path ./results/model_answer_evaled.jsonl \
-    --model_name gpt-4o \
+python code/open/evaluation.py \
+    --input_path ./results/gpt-4o_answer.jsonl \
+    --judge_model gpt-4o \
     --api_key YOUR_API_KEY \
     --base_url YOUR_BASE_URL \
     --folk_nums 16
 ```
-After the evaluation, you can run this code to obtain the detailed Top-k metric results.
+
+After the evaluation, run the following to obtain the detailed Top-k metric results:
 
 ```bash
-python metric.py \
+python code/open/metric.py \
     --model_name gpt-4o \
-    --metric_path ./results/model_answer_evaled.jsonl
+    --metric_path ./results/gpt-4o_answer_gpt-4o_evaled.jsonl
 ```
 
 ### Multi-Choice Question Evaluation
 
-If you would like to evaluate the DiagnosisArenaMCQ dataset, the process is similar to the one described above. You can start by running the inference and then compute the evaluation metrics.
+If you would like to evaluate the DiagnosisArenaMCQ dataset, the process is similar to the one described above.
 
-First, run the inference script with the following command:
+First, run the inference script:
 ```bash
-python inference_mcq.py \
-    --hf_data_path SII-SPIRAL-MED/DiagnosisArena \
+python code/mcq/inference_mcq.py \
+    --input_path SII-SPIRAL-MED/DiagnosisArena \
+    --output_root ./results \
     --model_name gpt-4o \
-    --output_path ./results/model_mcq_answer.jsonl \
     --api_key YOUR_API_KEY \
     --base_url YOUR_BASE_URL \
     --folk_nums 16
@@ -118,9 +135,9 @@ python inference_mcq.py \
 
 Next, run the metric evaluation script:
 ```bash
-python metric_mcq.py \
+python code/mcq/metric_mcq.py \
     --model_name gpt-4o \
-    --metric_path "./results/model_mcq_answer.jsonl"
+    --metric_path ./results/gpt-4o_answer.jsonl
 ```
 
 ## Contact Us

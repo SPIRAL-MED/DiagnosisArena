@@ -11,8 +11,10 @@ import pandas as pd
 class Args:
     def parseargs(self):
         parser = argparse.ArgumentParser()
-        parser.add_argument('--model_name', type=str, default="gpt-4o")
-        parser.add_argument('--metric_path', type=str, default="./results/model_answer_evaled.jsonl")
+        parser.add_argument('--model_name', type=str,
+                            help="Model name label used in the output metrics table.")
+        parser.add_argument('--metric_path', type=str,
+                            help="Path to the evaluated .jsonl file output by evaluation.py.")
 
         self.pargs = parser.parse_args()
         for key, value in vars(self.pargs).items():
