@@ -36,7 +36,7 @@ def metric(model, path):
 
         try:
             answer = re.findall(r"\\boxed{(.*?)}", obj['LLM Response'])[0].strip().lower()
-            results.append(1 if answer==obj['Right Option'].lower else 0)
+            results.append(1 if answer==obj['Right Option'].lower() else 0)
 
         except Exception as e:
             print(e)
