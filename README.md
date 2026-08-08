@@ -12,7 +12,7 @@
 
 ## 🔥News
 
-- [2026/04/05] Our work **[DiagnosisArena](https://aclanthology.org/2026.findings-acl.151/)** is accepted to ACL 2026 Findings!
+- [2026/04/05] Our work **[DiagnosisArena](https://aclanthology.org/2026.findings-acl.151/)** is accepted to **ACL 2026 Findings**!
 - [2025/06/04] Our work is featured by [量子位](https://mp.weixin.qq.com/s/8uRDnWzT2I9IRq7djuvEqw) on WeChat!
 
   
