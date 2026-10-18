@@ -149,29 +149,12 @@ If you are interested in our project and would like to join us, feel free to sen
 If you do find our code helpful or use our benchmark dataset, please cite our paper.
 
 ```
-@inproceedings{zhu-etal-2026-diagnosisarena,
-    title = "{D}iagnosis{A}rena: Benchmarking Diagnostic Reasoning for Large Language Models",
-    author = "Zhu, Yakun  and
-      Huang, Zhongzhen  and
-      Mu, Linjie  and
-      Huang, Yutong  and
-      Nie, Wei  and
-      Liu, Jiaji  and
-      Zhang, Shaoting  and
-      Liu, Pengfei  and
-      Zhang, Xiaofan",
-    editor = "Liakata, Maria  and
-      Moreira, Viviane P.  and
-      Zhang, Jiajun  and
-      Jurgens, David",
-    booktitle = "Findings of the {A}ssociation for {C}omputational {L}inguistics: {ACL} 2026",
-    month = jul,
-    year = "2026",
-    address = "San Diego, California, United States",
-    publisher = "Association for Computational Linguistics",
-    url = "https://aclanthology.org/2026.findings-acl.151/",
-    pages = "3074--3098",
-    ISBN = "979-8-89176-395-1"
+@inproceedings{zhu2026diagnosisarena,
+  title={DiagnosisArena: benchmarking diagnostic reasoning for large language models},
+  author={Zhu, Yakun and Huang, Zhongzhen and Mu, Linjie and Huang, Yutong and Nie, Wei and Liu, Jiaji and Zhang, Shaoting and Liu, Pengfei and Zhang, Xiaofan},
+  booktitle={Findings of the Association for Computational Linguistics: ACL 2026},
+  pages={3074--3098},
+  year={2026}
 }
 ```
 
